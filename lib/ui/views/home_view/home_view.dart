@@ -14,14 +14,18 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    List<SubjectModel> elements = Provider.of<MainProvider>(context).subjects;
+    List<Subject> elements = Provider.of<MainProvider>(context).subjects;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tests App'),
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: const Color(0xFFEEEEEE),
       body: ListView.builder(
         itemCount: elements.length,
         itemBuilder: (context, index) {
-          SubjectModel element = elements[index];
-
+          Subject element = elements[index];
           return HomeViewSubject(subject: element);
         },
       ),

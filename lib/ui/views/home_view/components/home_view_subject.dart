@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:m6_app_tests/application/models/subject_model.dart';
+import 'package:m6_app_tests/ui/views/test_list_view/test_list_view.dart';
 
 class HomeViewSubject extends StatefulWidget {
-  final SubjectModel subject;
+  final Subject subject;
 
   const HomeViewSubject({
     super.key,
@@ -14,6 +15,15 @@ class HomeViewSubject extends StatefulWidget {
 }
 
 class _HomeViewSubjectState extends State<HomeViewSubject> {
+  _goToSubject(BuildContext c) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TestListView(subject: widget.subject),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,26 +32,46 @@ class _HomeViewSubjectState extends State<HomeViewSubject> {
         color: const Color(0xffefefef),
         child: InkWell(
           onTap: () {},
-          child: SizedBox(
+          child: Container(
+            decoration: const BoxDecoration(color: Colors.white),
             width: double.infinity,
-            height: 150,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(
+                top: 24,
+                left: 8,
+                right: 8,
+                bottom: 8,
+              ),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 10,
+                    Column(
                       children: [
-                        widget.subject.icon,
                         Text(
                           widget.subject.name,
                           style: const TextStyle(fontSize: 28),
                         ),
                       ],
                     ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () => _goToSubject(context),
+                          child: const Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 3,
+                            children: [
+                              Text('Ver más'),
+                              Icon(Icons.chevron_right),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
